@@ -29,7 +29,6 @@
     font:inherit;font-size:14px;color:var(--ink);background:#fff}
   input.bad{border-color:var(--err)}
   input:focus-visible,button:focus-visible,.toggle:focus-within{outline:2px solid var(--blue);outline-offset:2px}
-  .hint{font-size:12px;color:var(--muted);margin-top:5px;line-height:1.45}
   .note{font-size:12px;color:var(--blue);font-weight:600;margin-top:5px;line-height:1.45}
   .warn{font-size:12px;color:var(--err);font-weight:600;margin-top:5px;line-height:1.45}
   .note:empty,.warn:empty{display:none}
@@ -60,13 +59,12 @@
 <body>
 
 <main>
-  <section class="panel" aria-label="Dine oplysninger">
+  <section class="panel">
     <h1>Dine oplysninger</h1>
 
     <div class="field">
       <label for="initialer">Initialer</label>
-      <input type="text" id="initialer" aria-describedby="h-initialer n-initialer" placeholder="Fx rmu" maxlength="6" autocapitalize="off" spellcheck="false">
-      <div class="hint" id="h-initialer">Bruges til dit profilbillede og din mail.</div>
+      <input type="text" id="initialer" placeholder="Fx rmu" maxlength="6" autocapitalize="off" spellcheck="false">
       <div class="note" id="n-initialer"></div>
     </div>
 
@@ -77,20 +75,18 @@
 
     <div class="field">
       <label for="titel">Titel</label>
-      <input type="text" id="titel" placeholder="Fx Webudvikler">
+      <input type="text" id="titel" placeholder="Konsulent">
     </div>
 
     <div class="field">
       <label for="mail">Mail</label>
-      <input type="email" id="mail" aria-describedby="h-mail w-mail" placeholder="initialer@best-one.dk" autocomplete="email">
-      <div class="hint" id="h-mail">Udfyldes ud fra dine initialer. Du kan rette den.</div>
+      <input type="email" id="mail" placeholder="initialer@best-one.dk" autocomplete="email">
       <div class="warn" id="w-mail"></div>
     </div>
 
     <div class="field">
       <label for="mobil">Mobil <span class="opt">(valgfri)</span></label>
-      <input type="tel" id="mobil" aria-describedby="h-mobil w-mobil" placeholder="25 94 00 00">
-      <div class="hint" id="h-mobil">Lad feltet stå tomt, hvis du ikke vil have mobilnummer med.</div>
+      <input type="tel" id="mobil" placeholder="25 94 00 00">
       <div class="warn" id="w-mobil"></div>
     </div>
 
@@ -98,7 +94,7 @@
       <label class="toggle" id="ferieToggle">
         <input type="checkbox" id="ferie"> Feriesignatur
       </label>
-      <div class="dates" id="dates" aria-describedby="w-ferie">
+      <div class="dates" id="dates">
         <div>
           <label for="fra">Fra</label>
           <input type="date" id="fra">
@@ -114,14 +110,14 @@
     <button type="button" class="linkbtn" id="reset">Ryd alle felter</button>
   </section>
 
-  <section aria-label="Forhåndsvisning">
+  <section>
     <div class="mail">
       <div id="sig"></div>
     </div>
 
     <div class="actions">
       <button type="button" class="btn" id="copy">Kopiér signatur</button>
-      <span class="status" id="status" role="status" aria-live="polite"></span>
+      <span class="status" id="status"></span>
     </div>
 
     <div class="panel guide">
