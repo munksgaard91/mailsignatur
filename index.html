@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mailsignatur | Best One</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#225581; --blue-dark:#183f61; --green:#43C890; --green-bg:#e8f8f1;
+    --ink:#1d2a36; --muted:#6b7785; --line:#dde3ea; --bg:#eef2f6; --err:#b3261e;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Montserrat,Verdana,sans-serif;color:var(--ink);background:var(--bg)}
+  header{background:var(--blue);color:#fff;padding:16px 28px;display:flex;align-items:center;gap:14px}
+  header .mark{width:34px;height:34px;border-radius:50%;background:#fff;color:var(--blue);font-weight:700;display:grid;place-items:center;font-size:20px;line-height:1}
+  header h1{font-size:17px;margin:0;font-weight:600}
+  main{display:grid;grid-template-columns:370px minmax(0,1fr);gap:28px;padding:28px;max-width:1320px;margin:0 auto;align-items:start}
+  @media (max-width:920px){main{grid-template-columns:1fr;padding:16px}}
+
+  .panel{background:#fff;border-radius:10px;padding:22px;border:1px solid var(--line)}
+  .panel h2{font-size:15px;margin:0 0 18px;font-weight:700}
+  .field{margin-bottom:16px}
+  label{display:block;font-size:13px;font-weight:600;margin:0 0 6px}
+  label .opt{font-weight:400;color:var(--muted)}
+  input[type=text],input[type=email],input[type=tel],input[type=date]{
+    width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:6px;
+    font:inherit;font-size:14px;color:var(--ink);background:#fff}
+  input.bad{border-color:var(--err)}
+  input:focus-visible,button:focus-visible,.toggle:focus-within{outline:2px solid var(--blue);outline-offset:2px}
+  .hint{font-size:12px;color:var(--muted);margin-top:5px;line-height:1.45}
+  .warn{font-size:12px;color:var(--err);font-weight:600;margin-top:5px;line-height:1.45}
+  .warn:empty{display:none}
+
+  .toggle{display:flex;align-items:center;gap:10px;padding:13px 14px;border-radius:8px;background:#f4f7fa;border:1px solid var(--line);cursor:pointer;font-weight:600;font-size:14px;margin:0}
+  .toggle input{width:18px;height:18px;accent-color:var(--green);margin:0}
+  .toggle.on{background:var(--green-bg);border-color:var(--green)}
+  .dates{display:none;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+  .dates.on{display:grid}
+
+  .links{display:flex;gap:16px;flex-wrap:wrap;margin-top:4px}
+  .linkbtn{background:none;border:0;padding:0;color:var(--muted);font:inherit;font-size:12px;text-decoration:underline;cursor:pointer}
+  .linkbtn:hover{color:var(--blue)}
+
+  .mail{background:#fff;border:1px solid var(--line);border-radius:10px;padding:28px;overflow-x:auto}
+  .mail .greeting{font-family:Arial,sans-serif;font-size:14px;color:#222;margin:0 0 22px}
+
+  .actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:18px}
+  .btn{font:inherit;font-weight:600;font-size:14px;padding:12px 18px;border-radius:6px;cursor:pointer;border:1px solid var(--blue)}
+  .primary{background:var(--blue);color:#fff}
+  .primary:hover{background:var(--blue-dark)}
+  .secondary{background:#fff;color:var(--blue)}
+  .secondary:hover{background:#f1f5f9}
+  .status{font-size:13px;font-weight:600;color:#1e8a5c}
+  .status.err{color:var(--err)}
+  .count{font-size:12px;color:var(--muted);margin-top:10px}
+  .count.warn{color:var(--err)}
+
+  .guide{margin-top:22px}
+  .guide h3{font-size:14px;margin:0 0 10px}
+  .guide ol{margin:0;padding-left:20px;font-size:13px;line-height:1.7}
+  .guide p{font-size:13px;line-height:1.6;color:var(--muted);margin:12px 0 0}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="mark" aria-hidden="true">b</div>
+  <h1>Mailsignatur</h1>
+</header>
+
+<main>
+  <section class="panel" aria-label="Dine oplysninger">
+    <h2>Dine oplysninger</h2>
+
+    <div class="field">
+      <label for="navn">Navn</label>
+      <input type="text" id="navn" placeholder="Fornavn Efternavn" autocomplete="name">
+    </div>
+
+    <div class="field">
+      <label for="titel">Titel</label>
+      <input type="text" id="titel" placeholder="Fx Webudvikler">
+    </div>
+
+    <div class="field">
+      <label for="mail">Mail</label>
+      <input type="email" id="mail" placeholder="initialer@best-one.dk" autocomplete="email">
+      <div class="warn" id="w-mail"></div>
+    </div>
+
+    <div class="field">
+      <label for="mobil">Mobil <span class="opt">(valgfri)</span></label>
+      <input type="tel" id="mobil" placeholder="25 94 00 00">
+      <div class="hint">Lad feltet stå tomt, hvis du ikke vil have mobilnummer med.</div>
+      <div class="warn" id="w-mobil"></div>
+    </div>
+
+    <div class="field">
+      <label for="billede">Profilbillede</label>
+      <input type="text" id="billede" placeholder="bo.jpg">
+      <div class="hint">Filnavnet på dit billede i mappen best-one.dk/mailsignatur/ på FTP. Du kan også indsætte en fuld URL.</div>
+      <div class="warn" id="w-billede"></div>
+    </div>
+
+    <div class="field">
+      <label class="toggle" id="ferieToggle">
+        <input type="checkbox" id="ferie"> Feriesignatur
+      </label>
+      <div class="dates" id="dates">
+        <div>
+          <label for="fra">Fra</label>
+          <input type="date" id="fra">
+        </div>
+        <div>
+          <label for="til">Til og med</label>
+          <input type="date" id="til">
+        </div>
+      </div>
+      <div class="warn" id="w-ferie"></div>
+    </div>
+
+    <div class="links">
+      <button type="button" class="linkbtn" id="share">Kopiér udfyldt link</button>
+      <button type="button" class="linkbtn" id="reset">Ryd alle felter</button>
+    </div>
+  </section>
+
+  <section aria-label="Forhåndsvisning">
+    <div class="mail">
+      <p class="greeting">Venlig hilsen</p>
+      <div id="sig"></div>
+    </div>
+
+    <div class="actions">
+      <button type="button" class="btn primary" id="copyRich">Kopiér signatur</button>
+      <button type="button" class="btn secondary" id="copyCode">Kopiér HTML-kode</button>
+      <span class="status" id="status" role="status" aria-live="polite"></span>
+    </div>
+    <div class="count" id="count"></div>
+
+    <div class="panel guide">
+      <h3>Sådan sætter du den ind i Gmail</h3>
+      <ol>
+        <li>Klik på Kopiér signatur.</li>
+        <li>Åbn Gmail, klik på tandhjulet og vælg Se alle indstillinger.</li>
+        <li>Under fanen Generelt finder du Signatur. Vælg din signatur eller opret en ny.</li>
+        <li>Klik i feltet, markér alt (Ctrl/Cmd + A) og indsæt (Ctrl/Cmd + V).</li>
+        <li>Rul ned og klik på Gem ændringer.</li>
+      </ol>
+      <p>Tip: Gem din feriesignatur som en ekstra signatur i Gmail. Så skal du bare skifte standardsignatur, når du går på ferie.</p>
+    </div>
+  </section>
+</main>
+
+<script>
+(function(){
+  'use strict';
+
+  /* ---------- Konstanter ---------- */
+  const ASSETS = 'https://best-one.dk/mailsignatur/';
+  const SITE = 'https://best-one.dk';
+  const MAIN_PHONE = { display: '71 99 77 11', tel: '+4571997711' };
+  const ADDRESS = 'Sydvestvej 15, 2600 Glostrup';
+  const MONTHS = ['januar','februar','marts','april','maj','juni','juli','august','september','oktober','november','december'];
+  const STORE_KEY = 'bo-mailsignatur';
+  const SHARE_KEYS = ['navn','titel','mail','mobil','billede'];
+  const IDS = [...SHARE_KEYS, 'ferie','fra','til'];
+
+  // Signaturens stil. Montserrat findes sjældent hos modtageren, så fallbacks er vigtige.
+  const FONT = 'Montserrat,Verdana,Arial,sans-serif';
+  const BLUE = '#225581';
+  const GREY = '#888888';
+  const TXT = `font-family:${FONT};font-size:13px;line-height:17px;color:${GREY};white-space:nowrap;`;
+
+  const $ = id => document.getElementById(id);
+  const val = id => $(id).value.trim();
+
+  /* ---------- Hjælpere ---------- */
+  const esc = s => String(s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
+  function parsePhone(raw){
+    let d = raw.replace(/\D/g,'');
+    if (d.length === 10 && d.startsWith('45')) d = d.slice(2);
+    if (d.length !== 8) return null;
+    return { display: d.replace(/(\d{2})(?=\d)/g,'$1 '), tel: '+45' + d };
+  }
+
+  function imgUrl(v){
+    v = v || 'bo.jpg';
+    return /^https?:\/\//i.test(v) ? v : ASSETS + v.replace(/^\/+/,'');
+  }
+
+  function fmtDate(v){
+    if (!v) return 'XX';
+    const [, m, d] = v.split('-').map(Number);
+    return `${d}. ${MONTHS[m - 1]}`;
+  }
+
+  function todayISO(){
+    const t = new Date();
+    return new Date(t.getTime() - t.getTimezoneOffset() * 60000).toISOString().slice(0,10);
+  }
+
+  /* ---------- Signaturens HTML ---------- */
+  function contactRow(icon, html){
+    return `<tr>`
+      + `<td valign="middle" style="padding:1px 6px 1px 0;vertical-align:middle;"><img src="${ASSETS}${icon}" alt="" width="20" height="20" style="display:block;border:0;width:20px;height:20px;"></td>`
+      + `<td valign="middle" style="padding:1px 0;vertical-align:middle;${TXT}">${html}</td>`
+      + `</tr>`;
+  }
+
+  const link = (href, text, color) =>
+    `<a href="${href}" target="_blank" style="${TXT}color:${color || GREY};text-decoration:none;">${text}</a>`;
+
+  function buildSignature(d){
+    const name = d.navn || 'Fornavn Efternavn';
+    const title = d.titel || 'Titel';
+    const mail = d.mail || 'initialer@best-one.dk';
+    const mobile = parsePhone(d.mobil);
+
+    const contacts = [
+      contactRow('mail-icon.png', link('mailto:' + esc(mail), esc(mail))),
+      contactRow('phone-icon.png', link('tel:' + MAIN_PHONE.tel, MAIN_PHONE.display)),
+      mobile ? contactRow('mobile-icon.png', link('tel:' + mobile.tel, mobile.display)) : '',
+      contactRow('pin-icon.png', ADDRESS),
+      contactRow('link-icon.png', link(SITE, 'best-one.dk', BLUE))
+    ].join('');
+
+    const vacation = d.ferie ? `
+      <tr><td style="padding:20px 0 0;">
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;max-width:600px;">
+          <tr><td bgcolor="#43C890" style="background-color:#43C890;padding:10px 14px;font-family:${FONT};font-size:14px;line-height:20px;color:#ffffff;">
+            OBS: Jeg holder ferie fra d. ${fmtDate(d.fra)} til og med d. ${fmtDate(d.til)}. Hvis din henvendelse haster, kan du kontakte en af mine dygtige kollegaer på telefon ${MAIN_PHONE.display} eller på mail info@best-one.dk.
+          </td></tr>
+        </table>
+      </td></tr>` : '';
+
+    return `
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+  <tr><td style="padding:0;">
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+      <tr>
+        <td valign="middle" align="center" style="padding:0 26px 0 0;vertical-align:middle;">
+          <img src="${esc(imgUrl(d.billede))}" alt="${esc(name)}" width="135" height="135" style="display:block;border:0;width:135px;height:135px;border-radius:50%;">
+          <a href="${SITE}" target="_blank" style="text-decoration:none;"><img src="${ASSETS}best-logo.png" alt="Best One" width="180" height="31" style="display:block;border:0;width:180px;height:31px;margin-top:20px;"></a>
+        </td>
+        <td style="width:0;padding:0;border-right:2px solid #eaeaea;"></td>
+        <td valign="middle" style="padding:0 0 0 26px;vertical-align:middle;">
+          <p style="margin:0 0 2px;font-family:${FONT};font-size:15px;line-height:19px;font-weight:700;color:${BLUE};white-space:nowrap;">${esc(name)}</p>
+          <p style="margin:0 0 2px;${TXT}">${esc(title)}</p>
+          <p style="margin:0 0 15px;${TXT}">Best One A/S</p>
+          <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">${contacts}</table>
+        </td>
+      </tr>
+    </table>
+  </td></tr>
+  ${vacation}
+  <tr><td style="padding:30px 0 0;">
+    <a href="${SITE}" target="_blank" style="text-decoration:none;"><img src="${ASSETS}best-one-partners-logo.png" alt="Best One partnere" width="500" height="60" style="display:block;border:0;width:500px;max-width:100%;height:auto;"></a>
+  </td></tr>
+  <tr><td style="padding:23px 0 0;">
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;max-width:600px;">
+      <tr><td style="font-family:${FONT};font-size:10px;line-height:13px;color:${GREY};">
+        Indholdet af denne mail er fortroligt og er kun tiltænkt modtageren af denne. Det er strengt forbudt at dele indhold fra denne mail med tredje part uden skriftlig tilladelse fra afsenderen. Hvis du modtager denne mail ved en fejl, bedes du svare tilbage og efterfølgende slette mailen for at undgå overtrædelser af ovenstående. På <a href="${SITE}" target="_blank" style="color:${GREY};">best-one.dk</a> kan du læse, hvordan vi behandler dine personoplysninger.
+      </td></tr>
+    </table>
+  </td></tr>
+</table>`.replace(/>\s+</g,'><').replace(/\s{2,}/g,' ').trim();
+  }
+
+  /* ---------- Tilstand ---------- */
+  function readForm(){
+    const d = {};
+    IDS.forEach(id => { const el = $(id); d[id] = el.type === 'checkbox' ? el.checked : el.value.trim(); });
+    return d;
+  }
+  function writeForm(d){
+    IDS.forEach(id => {
+      if (!(id in d)) return;
+      const el = $(id);
+      if (el.type === 'checkbox') el.checked = d[id] === true || d[id] === '1'; else el.value = d[id];
+    });
+  }
+  function save(d){
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(d)); } catch(e) {}
+  }
+  function loadStored(){
+    try { return JSON.parse(localStorage.getItem(STORE_KEY) || '{}'); } catch(e) { return {}; }
+  }
+
+  /* ---------- Validering ---------- */
+  function validate(d){
+    const w = { mail:'', mobil:'', ferie:'' };
+    if (d.mail && !/^[^\s@]+@best-one\.dk$/i.test(d.mail)) w.mail = 'Mailen skal ende på @best-one.dk.';
+    if (d.mobil && !parsePhone(d.mobil)) w.mobil = 'Skriv et dansk nummer med 8 cifre.';
+    if (d.ferie){
+      if (!d.fra || !d.til) w.ferie = 'Vælg begge datoer.';
+      else if (d.til < d.fra) w.ferie = 'Slutdatoen ligger før startdatoen.';
+    }
+    Object.entries(w).forEach(([k, msg]) => {
+      $('w-' + k).textContent = msg;
+      if ($(k) && $(k).tagName === 'INPUT' && $(k).type !== 'checkbox') $(k).classList.toggle('bad', !!msg);
+    });
+    return w;
+  }
+
+  /* ---------- Render ---------- */
+  function render(){
+    const d = readForm();
+    const html = buildSignature(d);
+    $('sig').innerHTML = html;
+
+    $('dates').classList.toggle('on', d.ferie);
+    $('ferieToggle').classList.toggle('on', d.ferie);
+    validate(d);
+
+    const img = $('sig').querySelector('img');
+    $('w-billede').textContent = '';
+    img.addEventListener('error', () => {
+      $('w-billede').textContent = 'Billedet blev ikke fundet. Tjek filnavnet.';
+    }, { once: true });
+
+    const n = html.length;
+    $('count').textContent = `Signaturen fylder ${n.toLocaleString('da-DK')} tegn. Gmail tillader op til 10.000.`;
+    $('count').classList.toggle('warn', n > 10000);
+
+    save(d);
+  }
+
+  /* ---------- Status ---------- */
+  let statusTimer;
+  function status(msg, err){
+    const s = $('status');
+    s.textContent = msg;
+    s.classList.toggle('err', !!err);
+    clearTimeout(statusTimer);
+    statusTimer = setTimeout(() => { s.textContent = ''; }, 4000);
+  }
+
+  function readyToCopy(){
+    const d = readForm();
+    if (!d.navn || !d.titel || !d.mail) { status('Udfyld navn, titel og mail først.', true); return null; }
+    const w = validate(d);
+    if (w.mail || w.mobil || w.ferie) { status('Ret de markerede felter først.', true); return null; }
+    return d;
+  }
+
+  /* ---------- Kopiering ---------- */
+  async function copyText(text){
+    try { await navigator.clipboard.writeText(text); return true; } catch(e) {}
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    const ok = document.execCommand('copy');
+    ta.remove();
+    return ok;
+  }
+
+  async function copyRich(){
+    const d = readyToCopy(); if (!d) return;
+    const html = buildSignature(d);
+    try {
+      if (navigator.clipboard && window.ClipboardItem){
+        await navigator.clipboard.write([new ClipboardItem({
+          'text/html': new Blob([html], { type:'text/html' }),
+          'text/plain': new Blob([$('sig').innerText], { type:'text/plain' })
+        })]);
+        return status('Signaturen er kopieret. Indsæt den i Gmail.');
+      }
+    } catch(e) {}
+    // Fallback: markér den viste signatur og kopiér som formateret tekst
+    const range = document.createRange();
+    range.selectNodeContents($('sig'));
+    const sel = window.getSelection();
+    sel.removeAllRanges(); sel.addRange(range);
+    const ok = document.execCommand('copy');
+    sel.removeAllRanges();
+    ok ? status('Signaturen er kopieret. Indsæt den i Gmail.')
+       : status('Kunne ikke kopiere. Markér signaturen og kopiér manuelt.', true);
+  }
+
+  async function copyCode(){
+    const d = readyToCopy(); if (!d) return;
+    (await copyText(buildSignature(d)))
+      ? status('HTML-koden er kopieret.')
+      : status('Kunne ikke kopiere HTML-koden.', true);
+  }
+
+  async function copyShareLink(){
+    const d = readForm();
+    const p = new URLSearchParams();
+    SHARE_KEYS.forEach(k => { if (d[k]) p.set(k, d[k]); });
+    const url = location.origin + location.pathname + (p.toString() ? '?' + p : '');
+    (await copyText(url))
+      ? status('Linket er kopieret. Send det til medarbejderen.')
+      : status('Kunne ikke kopiere linket.', true);
+  }
+
+  /* ---------- Opstart ---------- */
+  function init(){
+    const stored = loadStored();
+
+    // Et udfyldt link (fx til en ny medarbejder) vinder over det gemte
+    const params = new URLSearchParams(location.search);
+    const fromUrl = {};
+    SHARE_KEYS.forEach(k => { if (params.has(k)) fromUrl[k] = params.get(k); });
+    const hasUrlData = Object.keys(fromUrl).length > 0;
+
+    writeForm(hasUrlData ? { ...fromUrl, ferie:false, fra:'', til:'' } : stored);
+    if (hasUrlData) history.replaceState(null, '', location.pathname);
+
+    // Slå feriesignaturen fra af sig selv, når ferien er overstået
+    if ($('ferie').checked && $('til').value && $('til').value < todayISO()){
+      $('ferie').checked = false;
+      $('fra').value = ''; $('til').value = '';
+    }
+
+    IDS.forEach(id => $(id).addEventListener('input', render));
+    $('ferie').addEventListener('change', render);
+    $('copyRich').addEventListener('click', copyRich);
+    $('copyCode').addEventListener('click', copyCode);
+    $('share').addEventListener('click', copyShareLink);
+    $('reset').addEventListener('click', () => {
+      writeForm({ navn:'', titel:'', mail:'', mobil:'', billede:'', ferie:false, fra:'', til:'' });
+      try { localStorage.removeItem(STORE_KEY); } catch(e) {}
+      render();
+    });
+
+    render();
+  }
+
+  init();
+})();
+</script>
+</body>
+</html>
