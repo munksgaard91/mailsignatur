@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
 <title>Mailsignatur | Best One</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='32' fill='%23225581'/%3E%3Ctext x='32' y='45' text-anchor='middle' font-family='Montserrat,Arial,sans-serif' font-weight='700' font-size='38' fill='%23ffffff'%3Eb%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -14,14 +16,11 @@
   }
   *{box-sizing:border-box}
   body{margin:0;font-family:Montserrat,Verdana,sans-serif;color:var(--ink);background:var(--bg)}
-  header{background:var(--blue);color:#fff;padding:16px 28px;display:flex;align-items:center;gap:14px}
-  header .mark{width:34px;height:34px;border-radius:50%;background:#fff;color:var(--blue);font-weight:700;display:grid;place-items:center;font-size:20px;line-height:1}
-  header h1{font-size:17px;margin:0;font-weight:600}
   main{display:grid;grid-template-columns:370px minmax(0,1fr);gap:28px;padding:28px;max-width:1320px;margin:0 auto;align-items:start}
   @media (max-width:920px){main{grid-template-columns:1fr;padding:16px}}
 
   .panel{background:#fff;border-radius:10px;padding:22px;border:1px solid var(--line)}
-  .panel h2{font-size:15px;margin:0 0 18px;font-weight:700}
+  .panel h1{font-size:15px;margin:0 0 18px;font-weight:700}
   .field{margin-bottom:16px}
   label{display:block;font-size:13px;font-weight:600;margin:0 0 6px}
   label .opt{font-weight:400;color:var(--muted)}
@@ -31,8 +30,9 @@
   input.bad{border-color:var(--err)}
   input:focus-visible,button:focus-visible,.toggle:focus-within{outline:2px solid var(--blue);outline-offset:2px}
   .hint{font-size:12px;color:var(--muted);margin-top:5px;line-height:1.45}
+  .note{font-size:12px;color:var(--blue);font-weight:600;margin-top:5px;line-height:1.45}
   .warn{font-size:12px;color:var(--err);font-weight:600;margin-top:5px;line-height:1.45}
-  .warn:empty{display:none}
+  .note:empty,.warn:empty{display:none}
 
   .toggle{display:flex;align-items:center;gap:10px;padding:13px 14px;border-radius:8px;background:#f4f7fa;border:1px solid var(--line);cursor:pointer;font-weight:600;font-size:14px;margin:0}
   .toggle input{width:18px;height:18px;accent-color:var(--green);margin:0}
@@ -40,40 +40,35 @@
   .dates{display:none;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
   .dates.on{display:grid}
 
-  .links{display:flex;gap:16px;flex-wrap:wrap;margin-top:4px}
   .linkbtn{background:none;border:0;padding:0;color:var(--muted);font:inherit;font-size:12px;text-decoration:underline;cursor:pointer}
   .linkbtn:hover{color:var(--blue)}
 
   .mail{background:#fff;border:1px solid var(--line);border-radius:10px;padding:28px;overflow-x:auto}
-  .mail .greeting{font-family:Arial,sans-serif;font-size:14px;color:#222;margin:0 0 22px}
 
-  .actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:18px}
-  .btn{font:inherit;font-weight:600;font-size:14px;padding:12px 18px;border-radius:6px;cursor:pointer;border:1px solid var(--blue)}
-  .primary{background:var(--blue);color:#fff}
-  .primary:hover{background:var(--blue-dark)}
-  .secondary{background:#fff;color:var(--blue)}
-  .secondary:hover{background:#f1f5f9}
+  .actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:18px}
+  .btn{font:inherit;font-weight:600;font-size:14px;padding:12px 18px;border-radius:6px;cursor:pointer;border:1px solid var(--blue);background:var(--blue);color:#fff}
+  .btn:hover{background:var(--blue-dark)}
   .status{font-size:13px;font-weight:600;color:#1e8a5c}
   .status.err{color:var(--err)}
-  .count{font-size:12px;color:var(--muted);margin-top:10px}
-  .count.warn{color:var(--err)}
 
   .guide{margin-top:22px}
-  .guide h3{font-size:14px;margin:0 0 10px}
+  .guide h2{font-size:14px;margin:0 0 10px}
   .guide ol{margin:0;padding-left:20px;font-size:13px;line-height:1.7}
   .guide p{font-size:13px;line-height:1.6;color:var(--muted);margin:12px 0 0}
 </style>
 </head>
 <body>
 
-<header>
-  <div class="mark" aria-hidden="true">b</div>
-  <h1>Mailsignatur</h1>
-</header>
-
 <main>
   <section class="panel" aria-label="Dine oplysninger">
-    <h2>Dine oplysninger</h2>
+    <h1>Dine oplysninger</h1>
+
+    <div class="field">
+      <label for="initialer">Initialer</label>
+      <input type="text" id="initialer" aria-describedby="h-initialer n-initialer" placeholder="Fx rmu" maxlength="6" autocapitalize="off" spellcheck="false">
+      <div class="hint" id="h-initialer">Bruges til dit profilbillede og din mail.</div>
+      <div class="note" id="n-initialer"></div>
+    </div>
 
     <div class="field">
       <label for="navn">Navn</label>
@@ -87,29 +82,23 @@
 
     <div class="field">
       <label for="mail">Mail</label>
-      <input type="email" id="mail" placeholder="initialer@best-one.dk" autocomplete="email">
+      <input type="email" id="mail" aria-describedby="h-mail w-mail" placeholder="initialer@best-one.dk" autocomplete="email">
+      <div class="hint" id="h-mail">Udfyldes ud fra dine initialer. Du kan rette den.</div>
       <div class="warn" id="w-mail"></div>
     </div>
 
     <div class="field">
       <label for="mobil">Mobil <span class="opt">(valgfri)</span></label>
-      <input type="tel" id="mobil" placeholder="25 94 00 00">
-      <div class="hint">Lad feltet stå tomt, hvis du ikke vil have mobilnummer med.</div>
+      <input type="tel" id="mobil" aria-describedby="h-mobil w-mobil" placeholder="25 94 00 00">
+      <div class="hint" id="h-mobil">Lad feltet stå tomt, hvis du ikke vil have mobilnummer med.</div>
       <div class="warn" id="w-mobil"></div>
-    </div>
-
-    <div class="field">
-      <label for="billede">Profilbillede</label>
-      <input type="text" id="billede" placeholder="bo.jpg">
-      <div class="hint">Filnavnet på dit billede i mappen best-one.dk/mailsignatur/ på FTP. Du kan også indsætte en fuld URL.</div>
-      <div class="warn" id="w-billede"></div>
     </div>
 
     <div class="field">
       <label class="toggle" id="ferieToggle">
         <input type="checkbox" id="ferie"> Feriesignatur
       </label>
-      <div class="dates" id="dates">
+      <div class="dates" id="dates" aria-describedby="w-ferie">
         <div>
           <label for="fra">Fra</label>
           <input type="date" id="fra">
@@ -122,27 +111,21 @@
       <div class="warn" id="w-ferie"></div>
     </div>
 
-    <div class="links">
-      <button type="button" class="linkbtn" id="share">Kopiér udfyldt link</button>
-      <button type="button" class="linkbtn" id="reset">Ryd alle felter</button>
-    </div>
+    <button type="button" class="linkbtn" id="reset">Ryd alle felter</button>
   </section>
 
   <section aria-label="Forhåndsvisning">
     <div class="mail">
-      <p class="greeting">Venlig hilsen</p>
       <div id="sig"></div>
     </div>
 
     <div class="actions">
-      <button type="button" class="btn primary" id="copyRich">Kopiér signatur</button>
-      <button type="button" class="btn secondary" id="copyCode">Kopiér HTML-kode</button>
+      <button type="button" class="btn" id="copy">Kopiér signatur</button>
       <span class="status" id="status" role="status" aria-live="polite"></span>
     </div>
-    <div class="count" id="count"></div>
 
     <div class="panel guide">
-      <h3>Sådan sætter du den ind i Gmail</h3>
+      <h2>Sådan sætter du den ind i Gmail</h2>
       <ol>
         <li>Klik på Kopiér signatur.</li>
         <li>Åbn Gmail, klik på tandhjulet og vælg Se alle indstillinger.</li>
@@ -161,37 +144,34 @@
 
   /* ---------- Konstanter ---------- */
   const ASSETS = 'https://best-one.dk/mailsignatur/';
+  const PHOTO_EXT = '.jpg';
+  const FALLBACK_PHOTO = ASSETS + 'bo' + PHOTO_EXT;
   const SITE = 'https://best-one.dk';
   const MAIN_PHONE = { display: '71 99 77 11', tel: '+4571997711' };
   const ADDRESS = 'Sydvestvej 15, 2600 Glostrup';
   const MONTHS = ['januar','februar','marts','april','maj','juni','juli','august','september','oktober','november','december'];
   const STORE_KEY = 'bo-mailsignatur';
-  const SHARE_KEYS = ['navn','titel','mail','mobil','billede'];
-  const IDS = [...SHARE_KEYS, 'ferie','fra','til'];
+  const IDS = ['initialer','navn','titel','mail','mobil','ferie','fra','til'];
 
-  // Signaturens stil. Montserrat findes sjældent hos modtageren, så fallbacks er vigtige.
+  // Montserrat findes sjældent hos modtageren, så fallbacks er vigtige
   const FONT = 'Montserrat,Verdana,Arial,sans-serif';
   const BLUE = '#225581';
   const GREY = '#888888';
   const TXT = `font-family:${FONT};font-size:13px;line-height:17px;color:${GREY};white-space:nowrap;`;
 
   const $ = id => document.getElementById(id);
-  const val = id => $(id).value.trim();
 
   /* ---------- Hjælpere ---------- */
   const esc = s => String(s)
     .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
+  const cleanInitials = s => s.toLowerCase().replace(/[^a-z0-9æøå]/g,'');
 
   function parsePhone(raw){
     let d = raw.replace(/\D/g,'');
     if (d.length === 10 && d.startsWith('45')) d = d.slice(2);
     if (d.length !== 8) return null;
     return { display: d.replace(/(\d{2})(?=\d)/g,'$1 '), tel: '+45' + d };
-  }
-
-  function imgUrl(v){
-    v = v || 'bo.jpg';
-    return /^https?:\/\//i.test(v) ? v : ASSETS + v.replace(/^\/+/,'');
   }
 
   function fmtDate(v){
@@ -203,6 +183,46 @@
   function todayISO(){
     const t = new Date();
     return new Date(t.getTime() - t.getTimezoneOffset() * 60000).toISOString().slice(0,10);
+  }
+
+  /* ---------- Profilbillede ----------
+     Billedet hedder altid <initialer>.jpg. Findes det ikke endnu,
+     bruges Best One logoet (bo.jpg). */
+  let photo = { key: '', state: 'none', url: FALLBACK_PHOTO };
+
+  function resolvePhoto(){
+    const key = cleanInitials($('initialer').value);
+    if (key === photo.key) return render();
+    if (!key){ photo = { key, state: 'none', url: FALLBACK_PHOTO }; return render(); }
+
+    const url = ASSETS + encodeURIComponent(key) + PHOTO_EXT;
+    photo = { key, state: 'loading', url: FALLBACK_PHOTO };
+    const test = new Image();
+    test.onload  = () => { if (photo.key === key){ photo = { key, state: 'found', url }; render(); } };
+    test.onerror = () => { if (photo.key === key){ photo = { key, state: 'missing', url: FALLBACK_PHOTO }; render(); } };
+    test.src = url;
+    render();
+  }
+
+  /* ---------- Mail ud fra initialer ----------
+     Mailen følger initialerne, så længe den er tom eller stadig
+     matcher de forrige initialer. Retter man den selv, røres den ikke. */
+  const MAIL_DOMAIN = '@best-one.dk';
+  let lastInitials = '';
+
+  function syncMail(){
+    const key = cleanInitials($('initialer').value);
+    const mail = $('mail');
+    const current = mail.value.trim().toLowerCase();
+    if (!current || current === lastInitials + MAIL_DOMAIN){
+      mail.value = key ? key + MAIL_DOMAIN : '';
+    }
+    lastInitials = key;
+  }
+
+  function onInitials(){
+    syncMail();
+    resolvePhoto();
   }
 
   /* ---------- Signaturens HTML ---------- */
@@ -245,7 +265,7 @@
     <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
       <tr>
         <td valign="middle" align="center" style="padding:0 26px 0 0;vertical-align:middle;">
-          <img src="${esc(imgUrl(d.billede))}" alt="${esc(name)}" width="135" height="135" style="display:block;border:0;width:135px;height:135px;border-radius:50%;">
+          <img src="${esc(photo.url)}" alt="${esc(name)}" width="135" height="135" style="display:block;border:0;width:135px;height:135px;border-radius:50%;">
           <a href="${SITE}" target="_blank" style="text-decoration:none;"><img src="${ASSETS}best-logo.png" alt="Best One" width="180" height="31" style="display:block;border:0;width:180px;height:31px;margin-top:20px;"></a>
         </td>
         <td style="width:0;padding:0;border-right:2px solid #eaeaea;"></td>
@@ -282,7 +302,7 @@
     IDS.forEach(id => {
       if (!(id in d)) return;
       const el = $(id);
-      if (el.type === 'checkbox') el.checked = d[id] === true || d[id] === '1'; else el.value = d[id];
+      if (el.type === 'checkbox') el.checked = !!d[id]; else el.value = d[id];
     });
   }
   function save(d){
@@ -303,7 +323,8 @@
     }
     Object.entries(w).forEach(([k, msg]) => {
       $('w-' + k).textContent = msg;
-      if ($(k) && $(k).tagName === 'INPUT' && $(k).type !== 'checkbox') $(k).classList.toggle('bad', !!msg);
+      const el = $(k);
+      if (el.type !== 'checkbox') el.classList.toggle('bad', !!msg);
     });
     return w;
   }
@@ -311,22 +332,15 @@
   /* ---------- Render ---------- */
   function render(){
     const d = readForm();
-    const html = buildSignature(d);
-    $('sig').innerHTML = html;
+    $('sig').innerHTML = buildSignature(d);
 
     $('dates').classList.toggle('on', d.ferie);
     $('ferieToggle').classList.toggle('on', d.ferie);
     validate(d);
 
-    const img = $('sig').querySelector('img');
-    $('w-billede').textContent = '';
-    img.addEventListener('error', () => {
-      $('w-billede').textContent = 'Billedet blev ikke fundet. Tjek filnavnet.';
-    }, { once: true });
-
-    const n = html.length;
-    $('count').textContent = `Signaturen fylder ${n.toLocaleString('da-DK')} tegn. Gmail tillader op til 10.000.`;
-    $('count').classList.toggle('warn', n > 10000);
+    $('n-initialer').textContent = photo.state === 'missing'
+      ? 'Der er ikke uploadet et billede med de initialer endnu, så Best One logoet bruges.'
+      : '';
 
     save(d);
   }
@@ -341,27 +355,14 @@
     statusTimer = setTimeout(() => { s.textContent = ''; }, 4000);
   }
 
-  function readyToCopy(){
-    const d = readForm();
-    if (!d.navn || !d.titel || !d.mail) { status('Udfyld navn, titel og mail først.', true); return null; }
-    const w = validate(d);
-    if (w.mail || w.mobil || w.ferie) { status('Ret de markerede felter først.', true); return null; }
-    return d;
-  }
-
   /* ---------- Kopiering ---------- */
-  async function copyText(text){
-    try { await navigator.clipboard.writeText(text); return true; } catch(e) {}
-    const ta = document.createElement('textarea');
-    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
-    document.body.appendChild(ta); ta.select();
-    const ok = document.execCommand('copy');
-    ta.remove();
-    return ok;
-  }
+  async function copySignature(){
+    const d = readForm();
+    if (!d.navn || !d.titel || !d.mail) return status('Udfyld navn, titel og mail først.', true);
+    const w = validate(d);
+    if (w.mail || w.mobil || w.ferie) return status('Ret de markerede felter først.', true);
+    if (photo.state === 'loading') return status('Henter profilbillede, prøv igen om et øjeblik.', true);
 
-  async function copyRich(){
-    const d = readyToCopy(); if (!d) return;
     const html = buildSignature(d);
     try {
       if (navigator.clipboard && window.ClipboardItem){
@@ -372,6 +373,7 @@
         return status('Signaturen er kopieret. Indsæt den i Gmail.');
       }
     } catch(e) {}
+
     // Fallback: markér den viste signatur og kopiér som formateret tekst
     const range = document.createRange();
     range.selectNodeContents($('sig'));
@@ -383,35 +385,10 @@
        : status('Kunne ikke kopiere. Markér signaturen og kopiér manuelt.', true);
   }
 
-  async function copyCode(){
-    const d = readyToCopy(); if (!d) return;
-    (await copyText(buildSignature(d)))
-      ? status('HTML-koden er kopieret.')
-      : status('Kunne ikke kopiere HTML-koden.', true);
-  }
-
-  async function copyShareLink(){
-    const d = readForm();
-    const p = new URLSearchParams();
-    SHARE_KEYS.forEach(k => { if (d[k]) p.set(k, d[k]); });
-    const url = location.origin + location.pathname + (p.toString() ? '?' + p : '');
-    (await copyText(url))
-      ? status('Linket er kopieret. Send det til medarbejderen.')
-      : status('Kunne ikke kopiere linket.', true);
-  }
-
   /* ---------- Opstart ---------- */
   function init(){
-    const stored = loadStored();
-
-    // Et udfyldt link (fx til en ny medarbejder) vinder over det gemte
-    const params = new URLSearchParams(location.search);
-    const fromUrl = {};
-    SHARE_KEYS.forEach(k => { if (params.has(k)) fromUrl[k] = params.get(k); });
-    const hasUrlData = Object.keys(fromUrl).length > 0;
-
-    writeForm(hasUrlData ? { ...fromUrl, ferie:false, fra:'', til:'' } : stored);
-    if (hasUrlData) history.replaceState(null, '', location.pathname);
+    writeForm(loadStored());
+    lastInitials = cleanInitials($('initialer').value);
 
     // Slå feriesignaturen fra af sig selv, når ferien er overstået
     if ($('ferie').checked && $('til').value && $('til').value < todayISO()){
@@ -419,18 +396,17 @@
       $('fra').value = ''; $('til').value = '';
     }
 
-    IDS.forEach(id => $(id).addEventListener('input', render));
-    $('ferie').addEventListener('change', render);
-    $('copyRich').addEventListener('click', copyRich);
-    $('copyCode').addEventListener('click', copyCode);
-    $('share').addEventListener('click', copyShareLink);
+    // Checkboxen sender også et input-event, så én lytter pr. felt er nok
+    IDS.forEach(id => $(id).addEventListener('input', id === 'initialer' ? onInitials : render));
+    $('copy').addEventListener('click', copySignature);
     $('reset').addEventListener('click', () => {
-      writeForm({ navn:'', titel:'', mail:'', mobil:'', billede:'', ferie:false, fra:'', til:'' });
+      writeForm({ navn:'', titel:'', initialer:'', mail:'', mobil:'', ferie:false, fra:'', til:'' });
       try { localStorage.removeItem(STORE_KEY); } catch(e) {}
-      render();
+      lastInitials = '';
+      resolvePhoto();
     });
 
-    render();
+    resolvePhoto();
   }
 
   init();
