@@ -48,7 +48,7 @@ Bygges i `buildSignature()`. Regler, der skal overholdes, fordi det er mailklien
 * `role="presentation"` på layout-tabeller.
 * Font: `Montserrat,Verdana,Arial,sans-serif`. Montserrat findes sjældent hos modtageren.
 * Alle billeder har `width` og `height` som attributter og i style. Outlook bruger attributterne.
-* Alle links har farve inline, ellers farver Gmail dem blå.
+* Alle links har farve inline, ellers farver Gmail dem blå. Links i ferieboksen er hvide og understregede.
 * Ferieboksen bruger både `bgcolor` og `background-color`, så den også virker i Outlook.
 * Outputtet minificeres (whitespace mellem tags fjernes). Signaturen fylder ca. 6.200 tegn, Gmails grænse er 10.000.
 * Brugerinput escapes altid med `esc()`.
@@ -101,7 +101,7 @@ Der er ingen testsuite i repoet. Ændringer er testet med jsdom, hvor `window.Im
 * Initialer finder `<initialer>.jpg`, ukendte initialer falder tilbage til `bo.jpg`.
 * Mail følger initialerne, men ikke efter manuel rettelse.
 * Mobil med +45 formateres og linker korrekt.
-* Ferietekst, datovalidering og at telefonnummeret i ferieboksen er et `tel:`-link.
+* Ferietekst, datovalidering og at telefonnummer og info@best-one.dk i ferieboksen er klikbare links.
 * HTML i navnefeltet bliver escaped.
 * Udløbet ferie slås fra ved indlæsning, og Ryd alle felter virker.
 
@@ -109,5 +109,4 @@ Test altid det endelige resultat ved at indsætte signaturen i Gmail og sende en
 
 ## Åbne punkter
 
-* Skal `info@best-one.dk` i ferieboksen også være et klikbart `mailto:`-link ligesom telefonnummeret?
 * SVG-favicon vises ikke i alle Safari-versioner. Overvej en PNG-fallback.
