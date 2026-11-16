@@ -221,10 +221,17 @@
     resolvePhoto();
   }
 
-  /* ---------- Signaturens HTML ---------- */
-  function contactRow(icon, html){
+  /* ---------- Signaturens HTML ----------
+     Billeder blokeres ofte hos modtageren (fx Outlook, når afsenderen ikke
+     er "sikker afsender"). Så vises alt-teksten i stedet. Font og farve på
+     <img> påvirker KUN alt-teksten, ikke billedet, så signaturen ser
+     uændret ud, når billederne vises. */
+  const ALT = (size, color, bold) =>
+    `font-family:${FONT};font-size:${size}px;line-height:${size + 4}px;color:${color};${bold ? 'font-weight:700;' : ''}`;
+
+  function contactRow(icon, alt, html){
     return `<tr>`
-      + `<td valign="middle" style="padding:1px 6px 1px 0;vertical-align:middle;"><img src="${ASSETS}${icon}" alt="" width="20" height="20" style="display:block;border:0;width:20px;height:20px;"></td>`
+      + `<td valign="middle" style="padding:1px 6px 1px 0;vertical-align:middle;"><img src="${ASSETS}${icon}" alt="${alt}" width="20" height="20" style="display:block;border:0;width:20px;height:20px;${ALT(11, GREY, true)}text-align:center;"></td>`
       + `<td valign="middle" style="padding:1px 0;vertical-align:middle;${TXT}">${html}</td>`
       + `</tr>`;
   }
@@ -239,11 +246,11 @@
     const mobile = parsePhone(d.mobil);
 
     const contacts = [
-      contactRow('mail-icon.png', link('mailto:' + esc(mail), esc(mail))),
-      contactRow('phone-icon.png', link('tel:' + MAIN_PHONE.tel, MAIN_PHONE.display)),
-      mobile ? contactRow('mobile-icon.png', link('tel:' + mobile.tel, mobile.display)) : '',
-      contactRow('pin-icon.png', ADDRESS),
-      contactRow('link-icon.png', link(SITE, 'best-one.dk', BLUE))
+      contactRow('mail-icon.png', 'E', link('mailto:' + esc(mail), esc(mail))),
+      contactRow('phone-icon.png', 'T', link('tel:' + MAIN_PHONE.tel, MAIN_PHONE.display)),
+      mobile ? contactRow('mobile-icon.png', 'M', link('tel:' + mobile.tel, mobile.display)) : '',
+      contactRow('pin-icon.png', 'A', ADDRESS),
+      contactRow('link-icon.png', 'W', link(SITE, 'best-one.dk', BLUE))
     ].join('');
 
     const vacation = d.ferie ? `
@@ -262,7 +269,7 @@
       <tr>
         <td valign="middle" align="center" style="padding:0 26px 0 0;vertical-align:middle;">
           <img src="${esc(photo.url)}" alt="${esc(name)}" width="135" height="135" style="display:block;border:0;width:135px;height:135px;border-radius:50%;">
-          <a href="${SITE}" target="_blank" style="text-decoration:none;"><img src="${ASSETS}best-logo.png" alt="Best One" width="180" height="31" style="display:block;border:0;width:180px;height:31px;margin-top:20px;"></a>
+          <a href="${SITE}" target="_blank" style="text-decoration:none;"><img src="${ASSETS}best-logo.png" alt="Best One" width="180" height="31" style="display:block;border:0;width:180px;height:31px;margin-top:20px;${ALT(15, BLUE, true)}"></a>
         </td>
         <td style="width:0;padding:0;border-right:2px solid #eaeaea;"></td>
         <td valign="middle" style="padding:0 0 0 26px;vertical-align:middle;">
@@ -276,7 +283,7 @@
   </td></tr>
   ${vacation}
   <tr><td style="padding:30px 0 0;">
-    <a href="${SITE}" target="_blank" style="text-decoration:none;"><img src="${ASSETS}partners-logo.png" alt="Best One partnere" width="500" height="72" style="display:block;border:0;width:500px;max-width:100%;height:auto;"></a>
+    <a href="${SITE}" target="_blank" style="text-decoration:none;"><img src="${ASSETS}partners-logo.png" alt="Best One partnere" width="500" height="72" style="display:block;border:0;width:500px;max-width:100%;height:auto;${ALT(13, BLUE, true)}"></a>
   </td></tr>
   <tr><td style="padding:23px 0 0;">
     <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;max-width:600px;">
